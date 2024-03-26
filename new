@@ -1,0 +1,14 @@
+# Define the directory containing your script
+$scriptDirectory = "C:\path\to\directory"
+
+# Get the current value of the PATH environment variable
+$currentPath = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
+
+# Append the script directory to the PATH variable if it's not already included
+if ($currentPath -notlike "*$scriptDirectory*") {
+    $newPath = "$currentPath;$scriptDirectory"
+    [System.Environment]::SetEnvironmentVariable("PATH", $newPath, "Machine")
+}
+
+# If you also want to make the change available immediately in the current PowerShell session:
+$env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
