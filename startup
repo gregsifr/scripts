@@ -1,0 +1,12 @@
+# Define variables
+$scriptPath = "C:\path\to\your\script.ps1"
+$shortcutName = "RunScriptOnLogin.lnk"
+$startupFolder = [System.IO.Path]::Combine([Environment]::GetFolderPath("CommonStartup"), $shortcutName)
+
+# Create a WScript Shell object
+$WScriptShell = New-Object -ComObject WScript.Shell
+
+# Create a shortcut
+$Shortcut = $WScriptShell.CreateShortcut($startupFolder)
+$Shortcut.TargetPath = $scriptPath
+$Shortcut.Save()
