@@ -1,0 +1,33 @@
+# Path to the SSH config file
+$sshConfigPath = "$HOME\.ssh\config"
+
+# Configuration to add
+$configToAdd = @"
+Host *
+    ForwardAgent yes
+"@
+
+# Ensure the .ssh directory exists
+if (-Not (Test-Path "$HOME\.ssh")) {
+    New-Item -Path "$HOME\.ssh" -ItemType Directory
+}
+
+# Check if the config file exists, create it if it does not
+if (-Not (Test-Path $sshConfigPath)) {
+    # Create the file and add the configuration
+    $configToAdd | Out-File -FilePath $sshConfigPath -Encoding utf8 -Force
+    Write-Host "SSH config file created and configuration added."
+} else {
+    # Read the current content of the config file
+    $currentConfig = Get-Content -Path $sshConfigPath -Raw
+
+    # Check if the configuration is already present
+    if ($currentConfig -notmatch 'Host \*\s*ForwardAgent yes') {
+        # Add the configuration to the top of the file
+        $newConfig = $configToAdd + "`r`n" + $currentConfig
+        $newConfig | Out-File -FilePath $sshConfigPath -Encoding utf8 -Force
+        Write-Host "Configuration added to the SSH config file."
+    } else {
+        Write-Host "Configuration already exists in the SSH config file."
+    }
+}
