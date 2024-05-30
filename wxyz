@@ -3,6 +3,8 @@ code --version && code --list-extensions --show-versions
 dc96b837cf6bb4af9cd736aa3af08cf8279f7685
 x64
 eamodio.gitlens@15.0.4
+github.copilot@1.197.0
+github.copilot-chat@0.15.2
 ms-python.debugpy@2024.6.0
 ms-python.python@2024.6.0
 ms-python.vscode-pylance@2024.5.1
