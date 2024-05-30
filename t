@@ -16,6 +16,11 @@ function ssh {
 # Path to the PowerShell profile
 $profilePath = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 
+# Check if the profile script exists, if not, create it
+if (-not (Test-Path $profilePath)) {
+    New-Item -ItemType File -Path $profilePath -Force | Out-Null
+}
+
 # Write the profile content to the profile script, overwriting if it exists
 Add-Content -Path $profilePath -Value $profileContent -Force
 
